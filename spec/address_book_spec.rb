@@ -43,6 +43,13 @@ end
       expect(book_size).to eq 5
     end
 
+    it "imports the correct amount of entries from other csv files" do
+      book.import_from_csv("entries_2.csv")
+      book_size = book.entries.size
+
+      expect(book_size).to eq 3
+    end
+
     it "imports the first entry" do
       book.import_from_csv("entries.csv")
       entry_one = book.entries[0]
@@ -67,10 +74,28 @@ end
       check_entry(entry_four, "Sally", "555-555-4646", "sally@blocmail.com" )
     end
 
-    it "imports the 5th entryt" do
+    it "imports the 5th entry" do
       book.import_from_csv("entries.csv")
       entry_five = book.entries[4]
       check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
+    end
+
+    it "imports the 1st entry of the second file" do
+      book.import_from_csv("entries_2.csv")
+      entry_one = book.entries[0]
+      check_entry(entry_one, "Alex", "920-460-0268", "a@a.com")
+    end
+
+    it "imports the 2nd entry of the second file" do
+      book.import_from_csv("entries_2.csv")
+      entry_two = book.entries[1]
+      check_entry(entry_two, "Esther","920-574-8807","e@e.com")
+    end
+
+    it "imports the third entry of the second file" do
+      book.import_from_csv("entries_2.csv")
+      entry_three = book.entries[2]
+      check_entry(entry_three, "John","555-555-5554","j@j.com")
     end
 
   end
