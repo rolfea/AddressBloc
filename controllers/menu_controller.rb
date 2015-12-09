@@ -11,10 +11,12 @@ class MenuController
 
     puts "Main Menu - #{@address_book.entries.count} entries"
     puts "1 - View all entries"
-    puts "2 - Create an entry"
-    puts "3 - Search for an entry"
-    puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "2 - View n entry"
+    puts "3 - Create an entry"
+    puts "4 - Search for an entry"
+    puts "5 - Import entries from a CSV"
+    puts "6 - Delete all entries"
+    puts "7 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -41,8 +43,12 @@ class MenuController
       read_csv
       main_menu
     when 6
+      system "clear"
+      puts "Deleting all stored entries."
+      detonate
+      main_menu
+    when 7
       puts "Good-bye!"
-
       exit(0)
 
     else
@@ -155,7 +161,7 @@ class MenuController
     begin
       entry_count = @address_book.import_from_csv(file_name).count
       system "clear"
-      puts "#{entry_county} new entries added from #{file_name}"
+      puts "#{entry_count} new entries added from #{file_name}"
     rescue
       puts "#{file_name} is not a valid CSV file. Please enter the name of a valid CSV file."
       read_csv
@@ -196,7 +202,7 @@ class MenuController
   def edit_entry(entry)
     print "Updated name: "
     name = gets.chomp
-    print "Uodated phone number: "
+    print "Updated phone number: "
     phone_number = gets.chomp
     print "Updated email: "
     email = gets.chomp
@@ -208,5 +214,9 @@ class MenuController
 
     puts "Updated entry: "
     puts entry
+  end
+
+  def detonate
+    @address_book = []
   end
 end
